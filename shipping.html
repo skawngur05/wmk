@@ -1,0 +1,251 @@
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Wrap My Kitchen - Shipping Notification</title>
+</head>
+<body style="margin: 0; padding: 20px; font-family: Arial, sans-serif; line-height: 1.6; color: #333; background-color: #f8f9fa;">
+    
+    <!-- Main Container Table -->
+    <table width="100%" border="0" cellspacing="0" cellpadding="0" style="max-width: 600px; margin: 0 auto; background-color: #ffffff; border: 1px solid #e9ecef;">
+        
+        <!-- Logo Header -->
+        <tr>
+            <td style="padding: 30px 20px; text-align: center; background-color: #ffffff; border-bottom: 1px solid #e9ecef;">
+                <h1 style="margin: 0; font-size: 36px; font-weight: bold; color: #2c3e50;">
+                    wrap<span style="color: #28a745; font-weight: bold;">kitchen</span>
+                </h1>
+                <div style="margin: 10px 0 0; font-size: 12px; color: #6c757d; text-transform: uppercase; letter-spacing: 1px;">
+                    Kitchen Transformation Specialists
+                </div>
+            </td>
+        </tr>
+        
+        <!-- Green Banner -->
+        <tr>
+            <td style="padding: 20px; text-align: center; background-color: #28a745; color: white; font-size: 18px; font-weight: bold;">
+                📦 Your Order Has Been Shipped!
+            </td>
+        </tr>
+        
+        <!-- Main Content -->
+        <tr>
+            <td style="padding: 30px 20px;">
+                
+                <!-- Notification Text -->
+                <p style="font-size: 16px; color: #495057; margin-bottom: 25px; line-height: 1.7;">
+                    Great news! Your <strong>Wrap My Kitchen</strong> order has been processed and shipped. We're excited for you to start your kitchen transformation journey.
+                </p>
+                
+                <!-- Order Header -->
+                <table width="100%" border="0" cellspacing="0" cellpadding="20" style="background-color: #f8f9fa; border-left: 4px solid #28a745; margin: 20px 0;">
+                    <tr>
+                        <td>
+                            <h3 style="margin: 0 0 5px; color: #2c3e50; font-size: 18px; font-weight: 600;">
+                                Order #{$order_number}
+                            </h3>
+                            <div style="color: #6c757d; font-size: 14px;">Shipped on {$ship_date}</div>
+                        </td>
+                    </tr>
+                </table>
+                
+                <!-- Order Table -->
+                <table width="100%" border="0" cellspacing="0" cellpadding="0" style="margin: 25px 0; border: 1px solid #e9ecef;">
+                    <thead>
+                        <tr style="background-color: #2c3e50; color: white;">
+                            <th style="padding: 15px; text-align: left; font-weight: 600; font-size: 14px;">Product</th>
+                            <th style="padding: 15px; text-align: left; font-weight: 600; font-size: 14px;">Description</th>
+                            <th style="padding: 15px; text-align: center; font-weight: 600; font-size: 14px;">Qty</th>
+                            <th style="padding: 15px; text-align: right; font-weight: 600; font-size: 14px;">Price</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td style="padding: 15px; border-bottom: 1px solid #f1f3f4; color: #495057;">
+                                <strong>{$product_type}</strong>
+                            </td>
+                            <td style="padding: 15px; border-bottom: 1px solid #f1f3f4; color: #495057;">
+                                Sample Booklet - Premium Collection
+                            </td>
+                            <td style="padding: 15px; border-bottom: 1px solid #f1f3f4; color: #495057; text-align: center;">
+                                1
+                            </td>
+                            <td style="padding: 15px; border-bottom: 1px solid #f1f3f4; color: #495057; text-align: right;">
+                                $20.00
+                            </td>
+                        </tr>
+                        <tr>
+                            <td colspan="3" style="padding: 15px; border-bottom: 1px solid #f1f3f4; color: #495057;">
+                                <strong>Subtotal</strong>
+                            </td>
+                            <td style="padding: 15px; border-bottom: 1px solid #f1f3f4; color: #495057; text-align: right;">
+                                <strong>$20.00</strong>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td colspan="3" style="padding: 15px; border-bottom: 1px solid #f1f3f4; color: #495057;">
+                                Shipping & Handling
+                            </td>
+                            <td style="padding: 15px; border-bottom: 1px solid #f1f3f4; color: #495057; text-align: right;">
+                                Free
+                            </td>
+                        </tr>
+                        <tr style="background-color: #f8f9fa;">
+                            <td colspan="3" style="padding: 15px; color: #2c3e50; font-weight: 600; font-size: 16px;">
+                                <strong>Total</strong>
+                            </td>
+                            <td style="padding: 15px; color: #2c3e50; font-weight: 600; font-size: 16px; text-align: right;">
+                                <strong>$20.00</strong>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+                
+                <!-- Tracking Section -->
+                <table width="100%" border="0" cellspacing="0" cellpadding="30" style="background-color: #28a745; color: white; margin: 30px 0;">
+                    <tr>
+                        <td style="text-align: center;">
+                            <h3 style="margin: 0 0 15px; font-size: 20px; font-weight: 600;">
+                                📋 Track Your Shipment
+                            </h3>
+                            <p style="margin: 0 0 20px; font-size: 16px;">
+                                Your package is on its way! Use the tracking number below to monitor your shipment's progress.
+                            </p>
+                            <table width="100%" border="0" cellspacing="0" cellpadding="15" style="background-color: rgba(255, 255, 255, 0.2); margin: 20px 0;">
+                                <tr>
+                                    <td style="text-align: center; font-size: 20px; font-weight: bold; letter-spacing: 1px; color: white;">
+                                        {$tracking_number}
+                                    </td>
+                                </tr>
+                            </table>
+                            <table border="0" cellspacing="0" cellpadding="0" style="margin: 20px auto;">
+                                <tr>
+                                    <td style="background-color: #ffffff; border: 2px solid #ffffff;">
+                                        <a href="{$tracking_url}" target="_blank" style="display: block; padding: 15px 30px; color: #28a745; text-decoration: none; font-weight: 600; font-size: 16px;">
+                                            🔍 Track Package
+                                        </a>
+                                    </td>
+                                </tr>
+                            </table>
+                            <p style="margin: 15px 0 0; font-size: 14px; color: rgba(255, 255, 255, 0.9);">
+                                Estimated delivery: 2-5 business days via USPS
+                            </p>
+                        </td>
+                    </tr>
+                </table>
+                
+                <!-- Address Section -->
+                <table width="100%" border="0" cellspacing="0" cellpadding="0" style="margin: 30px 0;">
+                    <tr>
+                        <td width="48%" style="vertical-align: top;">
+                            <table width="100%" border="0" cellspacing="0" cellpadding="20" style="background-color: #f8f9fa; border-left: 4px solid #28a745;">
+                                <tr>
+                                    <td>
+                                        <h3 style="margin: 0 0 15px; color: #2c3e50; font-size: 16px; font-weight: 600; text-transform: uppercase;">
+                                            Billing Address
+                                        </h3>
+                                        <p style="margin: 5px 0; line-height: 1.5; color: #495057;">
+                                            <strong>{$customer_name}</strong>
+                                        </p>
+                                        <p style="margin: 5px 0; line-height: 1.5; color: #495057;">
+                                            {$billing_address_line1}
+                                        </p>
+                                        <p style="margin: 5px 0; line-height: 1.5; color: #495057;">
+                                            {$billing_city}, {$billing_state} {$billing_zip}
+                                        </p>
+                                        <p style="margin: 5px 0; line-height: 1.5; color: #495057;">
+                                            {$billing_country}
+                                        </p>
+                                        <p style="margin: 5px 0; line-height: 1.5; color: #495057;">
+                                            {$customer_phone}
+                                        </p>
+                                        <p style="margin: 5px 0; line-height: 1.5;">
+                                            <a href="mailto:{$customer_email}" style="color: #28a745; text-decoration: none;">
+                                                {$customer_email}
+                                            </a>
+                                        </p>
+                                    </td>
+                                </tr>
+                            </table>
+                        </td>
+                        <td width="4%">&nbsp;</td>
+                        <td width="48%" style="vertical-align: top;">
+                            <table width="100%" border="0" cellspacing="0" cellpadding="20" style="background-color: #f8f9fa; border-left: 4px solid #28a745;">
+                                <tr>
+                                    <td>
+                                        <h3 style="margin: 0 0 15px; color: #2c3e50; font-size: 16px; font-weight: 600; text-transform: uppercase;">
+                                            Shipping Address
+                                        </h3>
+                                        <p style="margin: 5px 0; line-height: 1.5; color: #495057;">
+                                            <strong>{$customer_name}</strong>
+                                        </p>
+                                        <p style="margin: 5px 0; line-height: 1.5; color: #495057;">
+                                            {$shipping_address_line1}
+                                        </p>
+                                        <p style="margin: 5px 0; line-height: 1.5; color: #495057;">
+                                            {$shipping_city}, {$shipping_state} {$shipping_zip}
+                                        </p>
+                                        <p style="margin: 5px 0; line-height: 1.5; color: #495057;">
+                                            {$shipping_country}
+                                        </p>
+                                        <p style="margin: 5px 0; line-height: 1.5; color: #495057;">
+                                            {$customer_phone}
+                                        </p>
+                                    </td>
+                                </tr>
+                            </table>
+                        </td>
+                    </tr>
+                </table>
+                
+                <!-- Pro Tip Section -->
+                <table width="100%" border="0" cellspacing="0" cellpadding="25" style="background-color: #343a40; color: white; margin: 30px 0;">
+                    <tr>
+                        <td style="text-align: center;">
+                            <p style="margin: 0 0 15px; font-weight: bold;">
+                                💡 Pro Tip: Take before photos of your kitchen to see the amazing transformation after installation!
+                            </p>
+                            <p style="margin: 0;">
+                                Need help with installation? 
+                                <a href="{$company_website}/support" style="color: #28a745; font-weight: 600; text-decoration: none;">
+                                    Visit our support center
+                                </a> for guides and tutorials.
+                            </p>
+                        </td>
+                    </tr>
+                </table>
+                
+            </td>
+        </tr>
+        
+        <!-- Footer -->
+        <tr>
+            <td style="background-color: #2c3e50; color: #ecf0f1; text-align: center; padding: 30px 20px;">
+                <h4 style="margin: 0 0 15px; color: white; font-size: 18px; font-weight: 600;">
+                    Wrap My Kitchen Support
+                </h4>
+                <p style="margin: 8px 0;">Questions about your order? We're here to help!</p>
+                <p style="margin: 8px 0;"><strong>📞 Phone:</strong> 1-800-000-WRAP (9727)</p>
+                <p style="margin: 8px 0;">
+                    <strong>📧 Email:</strong> 
+                    <a href="mailto:support@wrapmykitchen.com" style="color: #28a745; text-decoration: none;">
+                        support@wrapmykitchen.com
+                    </a>
+                </p>
+                <p style="margin: 8px 0;">
+                    <strong>🌐 Website:</strong> 
+                    <a href="{$company_website}" style="color: #28a745; text-decoration: none;">
+                        {$company_website}
+                    </a>
+                </p>
+                <p style="margin-top: 20px; font-size: 13px; color: #bdc3c7;">
+                    © 2024 Wrap My Kitchen USA. All rights reserved.<br>
+                    You received this email because you placed an order with us.
+                </p>
+            </td>
+        </tr>
+        
+    </table>
+    
+</body>
+</html>
