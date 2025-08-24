@@ -290,13 +290,10 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['update_lead'])) {
     $name = trim($_POST['name']);
     $phone = trim($_POST['phone']);
     $email = trim($_POST['email']);
-    $address = trim($_POST['address'] ?? '');
     $remarks = $_POST['remarks'];
     $assigned_to = $_POST['assigned_to'];
     $notes = trim($_POST['notes']);
     $project_amount = !empty($_POST['project_amount']) ? floatval($_POST['project_amount']) : 0;
-    $next_followup_date = !empty($_POST['next_followup_date']) ? $_POST['next_followup_date'] : null;
-    $lead_origin = trim($_POST['lead_origin'] ?? '');
     
     // Handle payment status for sold leads
     $deposit_paid = isset($_POST['deposit_paid']) ? 1 : 0;
@@ -309,13 +306,12 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['update_lead'])) {
         ensureInstallersTable($pdo);
         $stmt = $pdo->prepare("
             UPDATE leads SET 
-                name = ?, phone = ?, email = ?, address = ?, remarks = ?, 
+                name = ?, phone = ?, email = ?, remarks = ?, 
                 assigned_to = ?, notes = ?, project_amount = ?,
-                next_followup_date = ?, lead_origin = ?,
                 deposit_paid = ?, balance_paid = ?, installation_date = ?, assigned_installer = ?
             WHERE id = ?
         ");
-        $stmt->execute([$name, $phone, $email, $address, $remarks, $assigned_to, $notes, $project_amount, $next_followup_date, $lead_origin, $deposit_paid, $balance_paid, $installation_date, $assigned_installer, $lead_id]);
+        $stmt->execute([$name, $phone, $email, $remarks, $assigned_to, $notes, $project_amount, $deposit_paid, $balance_paid, $installation_date, $assigned_installer, $lead_id]);
         $success_message = "Lead updated successfully!";
     } catch (PDOException $e) {
         $error_message = "Error updating lead: " . $e->getMessage();
@@ -780,12 +776,6 @@ include 'includes/header.php';
                             <label for="email<?php echo $lead['id']; ?>" class="form-label">Email</label>
                             <input type="email" class="form-control" name="email" id="email<?php echo $lead['id']; ?>" value="<?php echo htmlspecialchars($lead['email']); ?>">
                         </div>
-                        <div class="col-md-12 mb-3">
-                            <label for="address<?php echo $lead['id']; ?>" class="form-label">Address</label>
-                            <input type="text" class="form-control" name="address" id="address<?php echo $lead['id']; ?>" 
-                                   value="<?php echo htmlspecialchars($lead['address'] ?? ''); ?>" placeholder="Property address for installation">
-                            <div class="form-text">Full address where service will be provided</div>
-                        </div>
                         <div class="col-md-6 mb-3">
                             <label for="remarks<?php echo $lead['id']; ?>" class="form-label">Status *</label>
                             <select class="form-select" name="remarks" id="remarks<?php echo $lead['id']; ?>" required onchange="togglePaymentTracking<?php echo $lead['id']; ?>(this.value)">
@@ -892,20 +882,6 @@ include 'includes/header.php';
                                 </div>
                             </div>
                         </div>
-                        <div class="col-md-6 mb-3">
-                            <label for="next_followup_date_edit<?php echo $lead['id']; ?>" class="form-label">
-                                <i class="fas fa-calendar-alt me-2"></i>Next Follow-up Date
-                            </label>
-                            <input type="date" class="form-control" name="next_followup_date" id="next_followup_date_edit<?php echo $lead['id']; ?>" 
-                                   value="<?php echo $lead['next_followup_date']; ?>">
-                            <div class="form-text">Set next follow-up date (leave empty if no follow-up needed)</div>
-                        </div>
-                        <div class="col-md-6 mb-3">
-                            <label for="lead_origin<?php echo $lead['id']; ?>" class="form-label">Lead Origin</label>
-                            <input type="text" class="form-control" name="lead_origin" id="lead_origin<?php echo $lead['id']; ?>" 
-                                   value="<?php echo htmlspecialchars($lead['lead_origin']); ?>" placeholder="e.g., Facebook, Google, Referral">
-                            <div class="form-text">Source where this lead originated from</div>
-                        </div>
                         <div class="col-12 mb-3">
                             <label for="notes<?php echo $lead['id']; ?>" class="form-label">Notes</label>
                             <textarea class="form-control" name="notes" id="notes<?php echo $lead['id']; ?>" rows="3"><?php echo htmlspecialchars($lead['notes']); ?></textarea>
@@ -922,218 +898,7 @@ include 'includes/header.php';
 </div>
 <?php endforeach; ?>
 
-<style>
-/* Smooth animations and transitions */
-.card {
-    transition: transform 0.2s ease, box-shadow 0.2s ease;
-}
-
-.card:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 4px 12px rgba(0,0,0,0.15);
-}
-
-.btn {
-    transition: all 0.2s ease;
-}
-
-.btn:hover {
-    transform: translateY(-1px);
-}
-
-.table-hover tbody tr:hover {
-    background-color: rgba(0, 123, 255, 0.05);
-    transition: background-color 0.2s ease;
-}
-
-.modal.fade .modal-dialog {
-    transition: transform 0.3s ease-out;
-}
-
-.modal.show .modal-dialog {
-    transform: none;
-}
-
-/* Loading animation */
-.loading {
-    opacity: 0.7;
-    pointer-events: none;
-}
-
-.loading::after {
-    content: "";
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    width: 20px;
-    height: 20px;
-    margin: -10px 0 0 -10px;
-    border: 2px solid #007bff;
-    border-radius: 50%;
-    border-top-color: transparent;
-    animation: spin 1s ease-in-out infinite;
-}
-
-@keyframes spin {
-    to { transform: rotate(360deg); }
-}
-
-/* Smooth form transitions */
-.form-control:focus, .form-select:focus {
-    border-color: #007bff;
-    box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
-    transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
-}
-
-/* Badge animations */
-.badge {
-    transition: transform 0.2s ease;
-}
-
-.badge:hover {
-    transform: scale(1.05);
-}
-
-/* Quick action stats hover effects */
-.text-center:hover .display-4 {
-    color: #007bff !important;
-    transition: color 0.2s ease;
-}
-
-/* Success message animation */
-.alert {
-    animation: slideInDown 0.3s ease;
-}
-
-@keyframes slideInDown {
-    from {
-        transform: translateY(-100%);
-        opacity: 0;
-    }
-    to {
-        transform: translateY(0);
-        opacity: 1;
-    }
-}
-
-/* Table row animation on load */
-tbody tr {
-    animation: fadeInUp 0.3s ease forwards;
-    opacity: 0;
-    transform: translateY(20px);
-}
-
-tbody tr:nth-child(1) { animation-delay: 0.1s; }
-tbody tr:nth-child(2) { animation-delay: 0.2s; }
-tbody tr:nth-child(3) { animation-delay: 0.3s; }
-tbody tr:nth-child(4) { animation-delay: 0.4s; }
-tbody tr:nth-child(5) { animation-delay: 0.5s; }
-
-@keyframes fadeInUp {
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
-}
-
-/* Form submission loading state */
-form.submitting {
-    position: relative;
-    pointer-events: none;
-    opacity: 0.7;
-}
-
-form.submitting::after {
-    content: "Saving...";
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    background: rgba(255, 255, 255, 0.9);
-    padding: 10px 20px;
-    border-radius: 5px;
-    font-weight: bold;
-    z-index: 1000;
-}
-</style>
-
 <script>
-// Add form submission loading states
-document.addEventListener('DOMContentLoaded', function() {
-    // Add loading state to all forms
-    const forms = document.querySelectorAll('form');
-    forms.forEach(form => {
-        form.addEventListener('submit', function() {
-            this.classList.add('submitting');
-        });
-    });
-    
-    // Add smooth scroll behavior for internal links
-    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-        anchor.addEventListener('click', function (e) {
-            e.preventDefault();
-            const target = document.querySelector(this.getAttribute('href'));
-            if (target) {
-                target.scrollIntoView({
-                    behavior: 'smooth',
-                    block: 'start'
-                });
-            }
-        });
-    });
-    
-    // Auto-hide alerts after 5 seconds
-    const alerts = document.querySelectorAll('.alert');
-    alerts.forEach(alert => {
-        setTimeout(() => {
-            alert.style.transition = 'opacity 0.5s ease';
-            alert.style.opacity = '0';
-            setTimeout(() => alert.remove(), 500);
-        }, 5000);
-    });
-    
-    // Form validation
-    const forms = document.querySelectorAll('form');
-    forms.forEach(form => {
-        form.addEventListener('submit', function(e) {
-            const requiredFields = this.querySelectorAll('[required]');
-            let hasErrors = false;
-            
-            requiredFields.forEach(field => {
-                if (!field.value.trim()) {
-                    field.style.borderColor = '#dc3545';
-                    field.style.boxShadow = '0 0 0 0.2rem rgba(220, 53, 69, 0.25)';
-                    hasErrors = true;
-                    
-                    // Remove error styling when user types
-                    field.addEventListener('input', function() {
-                        this.style.borderColor = '';
-                        this.style.boxShadow = '';
-                    });
-                } else {
-                    field.style.borderColor = '';
-                    field.style.boxShadow = '';
-                }
-            });
-            
-            if (hasErrors) {
-                e.preventDefault();
-                // Show error message
-                const existingError = this.querySelector('.validation-error');
-                if (!existingError) {
-                    const errorDiv = document.createElement('div');
-                    errorDiv.className = 'alert alert-danger validation-error mt-2';
-                    errorDiv.innerHTML = '<i class="fas fa-exclamation-triangle me-2"></i>Please fill in all required fields.';
-                    this.querySelector('.modal-body').appendChild(errorDiv);
-                    
-                    setTimeout(() => errorDiv.remove(), 3000);
-                }
-                return false;
-            }
-        });
-    });
-});
-
 // Smooth scroll to section
 function scrollToSection(sectionId) {
     const element = document.getElementById(sectionId);
